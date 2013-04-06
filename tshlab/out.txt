@@ -1,0 +1,239 @@
+Running 3 iters of trace00.txt
+1. Running trace00.txt...
+2. Running trace00.txt...
+3. Running trace00.txt...
+Running 3 iters of trace01.txt
+1. Running trace01.txt...
+2. Running trace01.txt...
+3. Running trace01.txt...
+Running 3 iters of trace02.txt
+1. Running trace02.txt...
+2. Running trace02.txt...
+3. Running trace02.txt...
+Running 3 iters of trace03.txt
+1. Running trace03.txt...
+2. Running trace03.txt...
+3. Running trace03.txt...
+Running 3 iters of trace04.txt
+1. Running trace04.txt...
+2. Running trace04.txt...
+3. Running trace04.txt...
+Running 3 iters of trace05.txt
+1. Running trace05.txt...
+2. Running trace05.txt...
+3. Running trace05.txt...
+Running 3 iters of trace06.txt
+1. Running trace06.txt...
+2. Running trace06.txt...
+3. Running trace06.txt...
+Running 3 iters of trace07.txt
+1. Running trace07.txt...
+2. Running trace07.txt...
+3. Running trace07.txt...
+Running 3 iters of trace08.txt
+1. Running trace08.txt...
+2. Running trace08.txt...
+3. Running trace08.txt...
+Running 3 iters of trace09.txt
+1. Running trace09.txt...
+2. Running trace09.txt...
+3. Running trace09.txt...
+Running 3 iters of trace10.txt
+1. Running trace10.txt...
+2. Running trace10.txt...
+3. Running trace10.txt...
+Running 3 iters of trace11.txt
+1. Running trace11.txt...
+2. Running trace11.txt...
+3. Running trace11.txt...
+Running 3 iters of trace12.txt
+1. Running trace12.txt...
+2. Running trace12.txt...
+3. Running trace12.txt...
+Running 3 iters of trace13.txt
+1. Running trace13.txt...
+2. Running trace13.txt...
+3. Running trace13.txt...
+Running 3 iters of trace14.txt
+1. Running trace14.txt...
+2. Running trace14.txt...
+3. Running trace14.txt...
+Running 3 iters of trace15.txt
+1. Running trace15.txt...
+2. Running trace15.txt...
+3. Running trace15.txt...
+Running 3 iters of trace16.txt
+1. Running trace16.txt...
+2. Running trace16.txt...
+3. Running trace16.txt...
+Running 3 iters of trace17.txt
+1. Running trace17.txt...
+2. Running trace17.txt...
+3. Running trace17.txt...
+Running 3 iters of trace18.txt
+1. Running trace18.txt...
+2. Running trace18.txt...
+3. Running trace18.txt...
+Running 3 iters of trace19.txt
+1. Running trace19.txt...
+2. Running trace19.txt...
+3. Running trace19.txt...
+Running 3 iters of trace20.txt
+1. Running trace20.txt...
+2. Running trace20.txt...
+3. Running trace20.txt...
+Running 3 iters of trace21.txt
+1. Running trace21.txt...
+Oops: test and reference outputs for trace21.txt differed.
+
+Test output:
+#
+# trace21.txt - Restart every stopped process in process group
+#
+tsh> ./mysplitp
+Job [1] (21869) stopped by signal 20
+tsh> /bin/sh -c '/bin/ps ha | /bin/fgrep -v grep | /bin/fgrep mysplitp | /usr/bin/expand | /usr/bin/colrm 1 15 | /usr/bin/colrm 2 11'
+T ./mysplitp
+T ./mysplitp
+tsh> fg %1
+tsh> /bin/sh -c '/bin/ps ha | /bin/fgrep -v grep | /bin/fgrep mysplitp'
+trace21.txt: Runtrace timed out waiting for next shell prompt
+Child shell still running.
+
+Reference output:
+#
+# trace21.txt - Restart every stopped process in process group
+#
+tsh> ./mysplitp
+Job [1] (21885) stopped by signal 20
+tsh> /bin/sh -c '/bin/ps ha | /bin/fgrep -v grep | /bin/fgrep mysplitp | /usr/bin/expand | /usr/bin/colrm 1 15 | /usr/bin/colrm 2 11'
+T ./mysplitp
+T ./mysplitp
+T ./mysplitp
+T ./mysplitp
+tsh> fg %1
+tsh> /bin/sh -c '/bin/ps ha | /bin/fgrep -v grep | /bin/fgrep mysplitp'
+21869 pts/16   T      0:00 ./mysplitp
+21870 pts/16   T      0:00 ./mysplitp
+
+Output of 'diff test reference':
+5c5
+< Job [1] (21869) stopped by signal 20
+---
+> Job [1] (21885) stopped by signal 20
+8a9,10
+> T ./mysplitp
+> T ./mysplitp
+11,12c13,14
+< trace21.txt: Runtrace timed out waiting for next shell prompt
+< Child shell still running.
+---
+> 21869 pts/16   T      0:00 ./mysplitp
+> 21870 pts/16   T      0:00 ./mysplitp
+
+Running 3 iters of trace22.txt
+1. Running trace22.txt...
+Oops: test and reference outputs for trace22.txt differed.
+
+Test output:
+#
+# trace22.txt - I/O redirection (input)
+#
+tsh> ./mycat < mycat.c
+trace22.txt: Runtrace timed out waiting for next shell prompt
+Child shell still running.
+
+Reference output:
+#
+# trace22.txt - I/O redirection (input)
+#
+tsh> ./mycat < mycat.c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    char c;
+    while ((c = getchar()) != EOF) {
+	putchar(c);
+    }
+    exit(0);
+}
+
+Output of 'diff test reference':
+5,6c5,14
+< trace22.txt: Runtrace timed out waiting for next shell prompt
+< Child shell still running.
+---
+> #include <stdio.h>
+> #include <stdlib.h>
+> 
+> int main() {
+>     char c;
+>     while ((c = getchar()) != EOF) {
+> 	putchar(c);
+>     }
+>     exit(0);
+> }
+
+Running 3 iters of trace23.txt
+1. Running trace23.txt...
+Oops: test and reference outputs for trace23.txt differed.
+
+Test output:
+#
+# trace23.txt - I/O redirection (input and output)
+#
+tsh> ./mycat < mycat.c > /dev/null
+trace23.txt: Runtrace timed out waiting for next shell prompt
+Child shell still running.
+
+Reference output:
+#
+# trace23.txt - I/O redirection (input and output)
+#
+tsh> ./mycat < mycat.c > /dev/null
+tsh> ./myspin1 &
+[1] (21946) ./myspin1 &
+tsh> jobs > /dev/null
+
+Output of 'diff test reference':
+5,6c5,7
+< trace23.txt: Runtrace timed out waiting for next shell prompt
+< Child shell still running.
+---
+> tsh> ./myspin1 &
+> [1] (21946) ./myspin1 &
+> tsh> jobs > /dev/null
+
+Running 3 iters of trace24.txt
+1. Running trace24.txt...
+Oops: test and reference outputs for trace24.txt differed.
+
+Test output:
+#
+# trace24.txt - I/O redirection (input and output, different order)
+#
+tsh> ./mycat > /dev/null < mycat.c
+trace24.txt: Runtrace timed out waiting for next shell prompt
+Child shell still running.
+
+Reference output:
+#
+# trace24.txt - I/O redirection (input and output, different order)
+#
+tsh> ./mycat > /dev/null < mycat.c
+tsh> ./myspin1 &
+[1] (21971) ./myspin1 &
+tsh> jobs > /dev/null
+
+Output of 'diff test reference':
+5,6c5,7
+< trace24.txt: Runtrace timed out waiting for next shell prompt
+< Child shell still running.
+---
+> tsh> ./myspin1 &
+> [1] (21971) ./myspin1 &
+> tsh> jobs > /dev/null
+
+
+Summary: 21/25 correct traces
