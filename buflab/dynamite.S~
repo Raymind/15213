@@ -1,0 +1,5 @@
+movl $0x6cf7bce8, %eax
+movl $0x55683a80, %ebp
+movl $0xdeadbeef, %edx
+pushl $0x8048c9b
+ret

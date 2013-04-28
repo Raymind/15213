@@ -1,0 +1,7 @@
+mov    $0x6cf7bce8,%eax
+mov    %esp,%edx
+add    $0x218,%edx
+mov    %edx,%ebp
+mov    $0xdeadbeef,%edx
+push   $0x8048c3b
+ret

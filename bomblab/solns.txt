@@ -1,0 +1,5 @@
+Verbosity leads to unclear, inarticulate things.
+0 1 3 6 10 15
+5 4294966624
+7 7
+ionefg
